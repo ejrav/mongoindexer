@@ -3,7 +3,7 @@ package com.ejrav.mi.main
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.ScallopConf
 import org.rogach.scallop.LazyScallopConf
-import org.rogach.scallop.exceptions.Version$
+
 
 case class Arguments(configFile: String = "")
 

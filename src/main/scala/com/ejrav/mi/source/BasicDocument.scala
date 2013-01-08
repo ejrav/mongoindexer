@@ -17,6 +17,13 @@ class BasicDocument extends Document {
   def fields(): Set[String] = {
     map.keySet.toSet
   }
+
+  def merge(doc: Document) {
+	  map ++= doc.toMap
+  }
+
+  def toMap: scala.collection.immutable.Map[String, Any] = map.toMap
+
 }
 
 object BasicDocument {

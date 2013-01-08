@@ -25,10 +25,9 @@
 			[
 				{
 					"name": "collection_1",
-					"fields":[
-						{"name":"field1"},
-						{"name":"field2"}
-					],
+					"field":{
+						"name":"field1"
+					},	
 					"categories":[
 						{"name":"cat1", "ctype":"CONSTANT", "value":"val1"},
 						{"name":"cat1", "ctype":"CONSTANT", "value":"val2"}

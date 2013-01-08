@@ -18,4 +18,12 @@ class MongoDocument(obj: DBObject) extends Document {
   def fields(): Set[String] = {
     obj.keySet().toSet
   }
+
+  def merge(doc: Document) {
+    doc.fields.foreach(f => obj.put(f, doc.field(f)))
+  }
+
+  def toMap: scala.collection.immutable.Map[String, Any] = {
+    obj.toMap.asInstanceOf[Map[String, Any]]
+  }
 }

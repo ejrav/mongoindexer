@@ -1,0 +1,36 @@
+{
+	"sources" : [
+		{
+			"name":"name1",
+			"host":"host1",
+			"port":"port1",
+			"user":"user1",
+			"password":"password1",
+		},
+		{
+			"name":"name2",
+			"host":"host2",
+			"port":"port2",
+			"user":"user2",
+			"password":"password2",
+		}
+		
+	],
+	"indexes" : [
+		"collections": 
+		[
+			{
+				"fields":[
+					{"name":"field1"},
+					{"name":"field2"}
+				],
+				"categories":[
+					{"name":"cat1", "type":"CONSTANT", "value":"val1"}
+					{"name":"cat1", "type":"CONSTANT", "value":"val2"}
+				]
+			}
+		],
+		"index":"index1"
+	] 
+	
+}

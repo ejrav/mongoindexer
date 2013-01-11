@@ -82,4 +82,6 @@ object MongoIndexerBuild extends Build {
           scalatest, scalaMock, scalaMockScalaTest, fongo,
           scallop, jacksonCore, jacksonModuleScala, 
           luceneCore, luceneAnalyzer, casbah))).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
+
+
 }

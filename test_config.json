@@ -28,7 +28,7 @@
 					"field":{
 						"name":"field1"
 					},	
-					"categories":[
+					"tags":[
 						{"name":"cat1", "ctype":"CONSTANT", "value":"val1"},
 						{"name":"cat1", "ctype":"CONSTANT", "value":"val2"}
 					]
@@ -36,11 +36,11 @@
 			],
 			"processors": [
 				{
-					"name":"it_indexer",
+					"name":"index",
 					"output_collection":"collection_name",
 					"output_field":"field_name",
 					"parameters": {
-						"key1": "value1",
+						"analyzer": "it",
 						"key2": "value2"
 					}
 				},

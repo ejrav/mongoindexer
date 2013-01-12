@@ -5,7 +5,7 @@ import com.ejrav.mi.config.Index
 import com.ejrav.mi.config.Source
 import com.ejrav.mi.source.SourceFactory
 import com.ejrav.mi.source.Query
-import com.sun.swing.internal.plaf.basic.resources.basic
+
 import com.ejrav.mi.source.BasicDocument
 
 
@@ -15,7 +15,7 @@ object ProcessorEngine {
   }
 
   def processIndex(idx: Index, source: Option[Source]) {
-    val conn = SourceFactory.getSource(source.get)
+    val conn = getConnection(source)
     idx.collections foreach { c =>
 
       val coll = conn.get(Query(c.name))
@@ -26,12 +26,18 @@ object ProcessorEngine {
         idx.processors foreach { p =>
           val processor = ProcessorFactory.getProccessor(p)
 
-          processor.run(d, p, c);
+          outDoc.merge(processor.run(d, p, c))
         }
+
+        outDoc.field("ref_id", d.field("_id"))
+        conn.save(Query(c.name), outDoc)
       }
 
     }
 
   }
 
+  def getConnection(source: Option[Source]) = {
+    SourceFactory.getSource(source.get)
+  }
 }

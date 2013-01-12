@@ -1,36 +1,61 @@
 {
-	"sources" : [
-		{
-			"name":"name1",
-			"host":"host1",
-			"port":"port1",
-			"user":"user1",
-			"password":"password1",
-		},
-		{
-			"name":"name2",
-			"host":"host2",
-			"port":"port2",
-			"user":"user2",
-			"password":"password2",
-		}
-		
-	],
-	"indexes" : [
-		"collections": 
-		[
-			{
-				"fields":[
-					{"name":"field1"},
-					{"name":"field2"}
-				],
-				"categories":[
-					{"name":"cat1", "type":"CONSTANT", "value":"val1"}
-					{"name":"cat1", "type":"CONSTANT", "value":"val2"}
-				]
-			}
-		],
-		"index":"index1"
-	] 
-	
+    "sources" : [
+        {
+            "name":"name1",
+            "host":"localhost",
+            "port":"1",
+            "db": "db1",
+            "user":"user1",
+            "password":"password1"
+        },
+        {
+            "name":"name2",
+            "host":"host2",
+            "port":"2",
+            "db": "db1",
+            "user":"user2",
+            "password":"password2"
+        }
+
+    ],
+    "indexes" : [
+        {
+            "source" : "name1",
+            "collections":
+                    [
+                        {
+                            "name": "collection_1",
+                            "field":{
+                                "name":"field1"
+                            },
+                            "tags":[
+                                {"name":"cat1", "ctype":"CONSTANT", "value":"val1"},
+                                {"name":"cat1", "ctype":"CONSTANT", "value":"val2"}
+                            ]
+                        }
+                    ],
+            "processors": [
+                {
+                    "name":"it_indexer",
+                    "output_collection":"collection_name",
+                    "output_field":"field_name",
+                    "parameters": {
+                        "key1": "value1",
+                        "key2": "value2"
+                    }
+                },
+                {
+                    "name":"url_processor",
+                    "output_collection":"collection_name",
+                    "output_field":"url_field_name",
+                    "parameters": {
+                        "key1": "value1",
+                        "key2": "value2"
+                    }
+
+                }
+            ]
+        }
+    ]
+
 }

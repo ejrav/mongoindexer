@@ -1,16 +1,15 @@
 package com.ejrav.mi.source
 
 import scala.collection.mutable.Map
-import scala.collection.TraversableOnce
 
 class BasicDocument extends Document {
-  var map = Map[String, Any]()
+  var map = Map[String, AnyRef]()
 
-  def field(name: String, value: Any) {
+  def field(name: String, value: AnyRef) {
     map(name) = value
   }
 
-  def field(name: String): Any = {
+  def field(name: String): AnyRef = {
     map(name)
   }
 
@@ -22,13 +21,13 @@ class BasicDocument extends Document {
 	  map ++= doc.toMap
   }
 
-  def toMap: scala.collection.immutable.Map[String, Any] = map.toMap
+  def toMap: scala.collection.immutable.Map[String, AnyRef] = map.toMap
 
 }
 
 object BasicDocument {
-  def apply(map: scala.collection.Map[String, Any]) = {
-    var nDoc = new BasicDocument
+  def apply(map: scala.collection.Map[String, AnyRef]) = {
+    val nDoc = new BasicDocument
     map.foreach { case (k, v) => nDoc.field(k, v) }
     nDoc
   }

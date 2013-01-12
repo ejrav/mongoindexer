@@ -1,5 +1,6 @@
 import sbt._
 import sbt.Keys._
+import com.github.retronym.SbtOneJar
 
 object Resolvers {
   val sonatypeRepo = "Sonatype Release" at "http://oss.sonatype.org/content/repositories/releases"
@@ -81,7 +82,7 @@ object MongoIndexerBuild extends Build {
       ++ Seq(libraryDependencies ++= Seq(signpost, signpostHttp, httpclient, commonsio, 
           scalatest, scalaMock, scalaMockScalaTest, fongo,
           scallop, jacksonCore, jacksonModuleScala, 
-          luceneCore, luceneAnalyzer, casbah))).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
+          luceneCore, luceneAnalyzer, casbah))++ SbtOneJar.oneJarSettings).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
 
 }

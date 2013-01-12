@@ -10,10 +10,10 @@ class IndexProcessor extends Processor {
   def run(document: Document, process: Process, collection: Collection): Document = {
     var doc = new BasicDocument
     val analyzer = AnalyzerFactory.getAnalyzer(process.parameters("analyzer"))
-    val content: String = document.field(collection.field.name).asInstanceOf[String]
+    val content = document.field(collection.field.name)
 
-    doc.field(process.outputField, analyzer.tokenize(content))
-    collection.categories.foreach(f => doc.field(f.name, f.value))
+    doc.field(process.outputField, analyzer.tokenize(content.toString))
+    collection.tags.foreach(f => doc.field(f.name, f.value))
     doc
   }
 }

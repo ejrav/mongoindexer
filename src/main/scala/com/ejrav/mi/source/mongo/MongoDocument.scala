@@ -1,29 +1,27 @@
 package com.ejrav.mi.source.mongo
 
-import com.mongodb.casbah.Imports._
-import scala.collection.JavaConversions._
 
-import com.mongodb.DBObject
 import com.ejrav.mi.source.Document
+import com.mongodb.casbah.commons.MongoDBObject
 
-class MongoDocument(obj: DBObject) extends Document {
-  def field(name: String, value: Any) {
+class MongoDocument(var obj: MongoDBObject) extends Document {
+  def field(name: String, value: AnyRef) {
     obj.put(name, value)
   }
 
-  def field(name: String): Any = {
-    obj.get(name)
+  def field(name: String): AnyRef = {
+    obj.as[AnyRef](name)
   }
 
   def fields(): Set[String] = {
-    obj.keySet().toSet
+    obj.keys.toSet
   }
 
   def merge(doc: Document) {
     doc.fields.foreach(f => obj.put(f, doc.field(f)))
   }
 
-  def toMap: scala.collection.immutable.Map[String, Any] = {
-    obj.toMap.asInstanceOf[Map[String, Any]]
+  def toMap: scala.collection.immutable.Map[String, AnyRef] = {
+    obj.toSet.toMap
   }
 }

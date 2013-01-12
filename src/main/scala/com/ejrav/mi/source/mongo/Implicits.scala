@@ -14,7 +14,12 @@ object Implicits {
     MongoDBObject(doc.fields.map(f => (f, doc.field(f))).toList)
   }
 
+
   implicit def mongoToDocument(obj: DBObject): Document = {
+    new MongoDocument(obj)
+  }
+
+  implicit def mongoToDocument(obj: MongoDBObject): Document = {
     new MongoDocument(obj)
   }
 
@@ -24,7 +29,8 @@ object Implicits {
       x1
     }
 
-    query.filter.map(f => filterToMongoObject(f)).reduceLeft((x1, x2) => reduce(x1, x2))
+    if (query.filter.isEmpty) new BasicDBObject
+    else query.filter.map(f => filterToMongoObject(f)).reduceLeft((x1, x2) => reduce(x1, x2))
   }
 
   def filterToMongoObject(f: QueryField[_]): MongoDBObject = {

@@ -79,9 +79,9 @@ object MongoIndexerBuild extends Build {
     id = "mongoindexer",
     base = file("."),
     settings = projectSettings
-      ++ Seq(libraryDependencies ++= Seq(signpost, signpostHttp, httpclient, commonsio, 
+      ++ Seq(libraryDependencies ++= Seq(slf4jSimple,signpost, signpostHttp, httpclient, commonsio,
           scalatest, scalaMock, scalaMockScalaTest, fongo,
-          scallop, jacksonCore, jacksonModuleScala, 
+          scallop, jacksonCore, jacksonModuleScala,
           luceneCore, luceneAnalyzer, casbah))++ SbtOneJar.oneJarSettings).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 
 

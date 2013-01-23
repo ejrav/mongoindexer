@@ -26,7 +26,7 @@ class TestJsonConfig extends FlatSpec with ShouldMatchers {
     conf.indexes(0).processors.size should equal (2)
     
     conf.indexes(0).processors(0).parameters should not equal (Map.empty)
-    conf.indexes(0).processors(0).parameters("key1") should equal("value1")
+    conf.indexes(0).processors(0).parameters("analyzer") should equal("it")
   }
 
 }

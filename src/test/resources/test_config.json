@@ -34,10 +34,10 @@
                             ]
                         }
                     ],
+            "output_collection":"collection_name",
             "processors": [
                 {
                     "name":"it_indexer",
-                    "output_collection":"collection_name",
                     "output_field":"field_name",
                     "parameters": {
                         "key1": "value1",
@@ -46,7 +46,6 @@
                 },
                 {
                     "name":"url_processor",
-                    "output_collection":"collection_name",
                     "output_field":"url_field_name",
                     "parameters": {
                         "key1": "value1",

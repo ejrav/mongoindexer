@@ -7,33 +7,49 @@ import com.ejrav.mi.source.SourceFactory
 import com.ejrav.mi.source.Query
 
 import com.ejrav.mi.source.BasicDocument
+import org.slf4j.LoggerFactory
 
 
 object ProcessorEngine {
+  val logger = LoggerFactory.getLogger("ProcessorEngine")
+
   def run(conf: Configuration) {
     conf.indexes.foreach(idx => processIndex(idx, conf.getSource(idx.source)))
   }
 
   def processIndex(idx: Index, source: Option[Source]) {
+
+    logger.info("Start indexing...")
     val conn = getConnection(source)
-    idx.collections foreach { c =>
+    idx.collections foreach {
+      c =>
 
-      val coll = conn.get(Query(c.name))
+        logger.info("Processing collection {}", c.name)
 
-      coll.foreach { d =>
-        var outDoc = new BasicDocument
-        
-        idx.processors foreach { p =>
-          val processor = ProcessorFactory.getProccessor(p)
+        val coll = conn.get(Query(c.name))
 
-          outDoc.merge(processor.run(d, p, c))
+        coll.foreach {
+          d =>
+            try {
+              var outDoc = new BasicDocument
+
+              idx.processors foreach {
+                p =>
+                  val processor = ProcessorFactory.getProccessor(p)
+
+                  outDoc.merge(processor.run(d, p, c))
+              }
+
+              outDoc.field("ref_id", d.field("_id"))
+              conn.save(Query(idx.outputCollection), outDoc)
+            } catch {
+              case e: NoSuchElementException => logger.error("filed not found i doc %s".format(d), e)
+            }
         }
 
-        outDoc.field("ref_id", d.field("_id"))
-        conn.save(Query(c.name), outDoc)
-      }
-
     }
+
+    logger.info("End indexing.")
 
   }
 

@@ -24,4 +24,6 @@ class MongoDocument(var obj: MongoDBObject) extends Document {
   def toMap: scala.collection.immutable.Map[String, AnyRef] = {
     obj.toSet.toMap
   }
+
+  override def toString = obj.toString()
 }

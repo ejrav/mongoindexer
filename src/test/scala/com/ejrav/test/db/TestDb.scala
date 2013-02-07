@@ -49,8 +49,6 @@ class TestDb extends FlatSpec with ShouldMatchers {
   }
 
   def getData(conn: Connection): Collection[Document] = {
-    val doc = BasicDocument(Map(("a" -> "v"), ("b" -> "v")))
-
     val query = Query("collection_1", List(QueryField("a", "v")))
     
     conn.get(query)

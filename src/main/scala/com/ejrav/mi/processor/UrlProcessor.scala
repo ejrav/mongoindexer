@@ -9,8 +9,6 @@ import com.ejrav.mi.source.mongo.Implicits._
 
 class UrlProcessor extends Processor {
   def run(document: Document, process: Process, collection: Collection): Document = {
-
-
     var doc = new BasicDocument
 
     val content = document.field(collection.field.name)
@@ -47,7 +45,7 @@ class UrlProcessor extends Processor {
     def removeUnwantedChars(str: String): String = {
       if (str.isEmpty) ""
       else str.head match {
-        case ' ' | '\'' | '?' | '.' | ',' => "_" + removeUnwantedChars(str.tail)
+        case ' ' | '\'' | '?' | '.' | ',' | '-' => "_" + removeUnwantedChars(str.tail)
         case 'è' | 'é' => "e" + removeUnwantedChars(str.tail)
         case 'ò' => "e" + removeUnwantedChars(str.tail)
         case 'à' => "a" + removeUnwantedChars(str.tail)

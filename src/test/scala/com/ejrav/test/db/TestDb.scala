@@ -2,13 +2,8 @@ package com.ejrav.test.db
 
 import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
-import org.scalamock.scalatest.MockFactory
-import org.scalamock._
-import org.scalamock.ProxyMockFactory
-import com.ejrav.mi.source.SourceFactory
 import com.ejrav.mi.config.Configuration
 import com.ejrav.mi.source.Query
-import com.ejrav.mi.config.Source
 import com.ejrav.mi.source.Connection
 import com.ejrav.mi.source.BasicDocument
 import com.ejrav.mi.source.Document
@@ -28,15 +23,15 @@ class TestDb extends FlatSpec with ShouldMatchers {
       case Some(source) => {
         val conn = SourcFactoryMock.getSource(source)
         saveData(conn)
-        
+
         val data = getData(conn)
-        
+
         assert(data != null)
-        
+
         val doc = data.next
         doc.field("a") should equal("v")
         doc.field("b") should equal("v")
-        doc.field("_id").getClass should equal(classOf[ObjectId])  
+        doc.field("_id").getClass should equal(classOf[ObjectId])
       }
       case None => false should equal(true)
     }
@@ -50,7 +45,7 @@ class TestDb extends FlatSpec with ShouldMatchers {
 
   def getData(conn: Connection): Collection[Document] = {
     val query = Query("collection_1", List(QueryField("a", "v")))
-    
+
     conn.get(query)
   }
 }

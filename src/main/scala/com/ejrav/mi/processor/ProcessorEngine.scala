@@ -37,11 +37,19 @@ object ProcessorEngine {
                 p =>
                   val processor = ProcessorFactory.getProccessor(p)
 
-                  outDoc.merge(processor.run(d, p, c))
+
+                  if (processor.isReadOnly) {
+                    processor.run(d, p, c)
+                  } else {
+                    outDoc.merge(processor.run(d, p, c))
+                  }
               }
 
-              outDoc.field("ref_id", d.field("_id"))
-              conn.save(Query(idx.outputCollection), outDoc)
+
+              if (outDoc.isEmpty){
+                outDoc.field("ref_id", d.field("_id"))
+                conn.save(Query(idx.outputCollection), outDoc)
+              }
             } catch {
               case e: NoSuchElementException => logger.error("filed not found i doc %s".format(d), e)
             }

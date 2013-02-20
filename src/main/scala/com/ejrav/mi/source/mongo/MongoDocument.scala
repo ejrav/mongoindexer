@@ -25,5 +25,8 @@ class MongoDocument(var obj: MongoDBObject) extends Document {
     obj.toSet.toMap
   }
 
+
+  def isEmpty: Boolean = obj.isEmpty
+
   override def toString = obj.toString()
 }

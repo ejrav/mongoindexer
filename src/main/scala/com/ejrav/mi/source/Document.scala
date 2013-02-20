@@ -10,4 +10,6 @@ trait Document {
 	def merge(doc: Document)
 	
 	def toMap: Map[String, AnyRef]
+
+  def isEmpty: Boolean
 }

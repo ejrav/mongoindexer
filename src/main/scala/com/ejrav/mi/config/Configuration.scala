@@ -50,6 +50,8 @@ object Configuration {
     val mapper = new ObjectMapper()
     mapper.registerModule(DefaultScalaModule)
 
-    mapper.readValue(reader, classOf[Configuration]).asInstanceOf[Configuration]
+    val r = mapper.readValue(reader, classOf[Configuration]).asInstanceOf[Configuration]
+    reader.close();
+    r
   }
 }

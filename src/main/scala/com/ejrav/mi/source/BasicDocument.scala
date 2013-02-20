@@ -1,6 +1,8 @@
 package com.ejrav.mi.source
 
 import scala.collection.mutable.Map
+import scala.Predef._
+
 
 class BasicDocument extends Document {
   var map = Map[String, AnyRef]()
@@ -18,8 +20,11 @@ class BasicDocument extends Document {
   }
 
   def merge(doc: Document) {
-	  map ++= doc.toMap
+    map ++= doc.toMap
   }
+
+
+  def isEmpty: Boolean = map.isEmpty
 
   def toMap: scala.collection.immutable.Map[String, AnyRef] = map.toMap
 
@@ -28,7 +33,9 @@ class BasicDocument extends Document {
 object BasicDocument {
   def apply(map: scala.collection.Map[String, AnyRef]) = {
     val nDoc = new BasicDocument
-    map.foreach { case (k, v) => nDoc.field(k, v) }
+    map.foreach {
+      case (k, v) => nDoc.field(k, v)
+    }
     nDoc
   }
 }

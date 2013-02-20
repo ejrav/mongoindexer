@@ -7,7 +7,7 @@ import com.mongodb.BasicDBObject
 import com.ejrav.mi.source.mongo.Implicits._
 
 
-class UrlProcessor extends Processor {
+class UrlProcessor(process: Process) extends Processor {
   def run(document: Document, process: Process, collection: Collection): Document = {
     var doc = new BasicDocument
 
@@ -25,6 +25,10 @@ class UrlProcessor extends Processor {
     collection.tags.foreach(f => doc.field(f.name, f.value))
     doc
   }
+
+  def isReadOnly: Boolean = false
+
+  def close {}
 
   private def getAdditionalFields(doc: Document, additionField: String): AnyRef = {
     def getValue(doc: Document, f: List[String]): AnyRef = {
@@ -61,7 +65,7 @@ class UrlProcessor extends Processor {
 }
 
 object UrlProcessor {
-  def apply() = {
-    new UrlProcessor
+  def apply(process: Process) = {
+    new UrlProcessor(process)
   }
 }
